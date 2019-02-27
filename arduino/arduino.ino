@@ -49,9 +49,8 @@ void loop() {
     else if(s == "zaplon_on") zaplon_on();
     else if(s == "foto") Serial.println(fotorezystor());
     else if(s == "drzwi") drzwi();
-    else if(s == "rozruch"){
-      while(!Serial.available());
-      int ms = Serial.readString().toInt();
+    else if(s.startsWith("rozruch")){
+      int ms = s.substring(7).toInt();
       if(ms > 200 && ms < 3000) rozruch(ms);
       else Serial.println("Czas rozruchu poza dopuszczalnymi granicami!");
     }

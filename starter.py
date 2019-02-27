@@ -54,6 +54,7 @@ class Starter:
         f = self.foto()
         if f is not None and f < 10:
             self.__connection.write(b"rozruch")
+            sleep(1)
             self.__connection.write(b"700")
 
 
