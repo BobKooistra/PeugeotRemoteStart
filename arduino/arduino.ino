@@ -3,12 +3,14 @@ void setup() {
   pinMode(7, OUTPUT); //rozruch
   pinMode(A3, OUTPUT); //przekaznik ledow
   pinMode(A4, INPUT); //wejscie dzielnika napiecia z fotoresyztorem
-  pinMode(4, OUTPUT); //drzwi
+  pinMode(4, OUTPUT); //drzwi zamykanie
+  pinMode(3, OUTPUT); //drzwi otwieranie
   
   digitalWrite(7, LOW); //rozruch
   digitalWrite(6, LOW); //zaplon
   digitalWrite(A3, LOW); //ledy off
   digitalWrite(4, LOW);
+  digitalWrite(3, LOW);
   
   Serial.begin(9600);
 }
@@ -35,10 +37,16 @@ void rozruch(int ms){
   digitalWrite(7, LOW);
 }
 
-void drzwi(){
+void zamknij(){
   digitalWrite(4, HIGH);
-  delay(100);
+  delay(500);
   digitalWrite(4, LOW);
+}
+
+void otworz(){
+  digitalWrite(3, HIGH);
+  delay(500);
+  digitalWrite(3, LOW);
 }
 
 void loop() {
@@ -48,7 +56,8 @@ void loop() {
     if(s == "zaplon_off") zaplon_off();
     else if(s == "zaplon_on") zaplon_on();
     else if(s == "foto") Serial.println(fotorezystor());
-    else if(s == "drzwi") drzwi();
+    else if(s == "otworz") otworz();
+    else if(s == "zamknij") zamknij();
     else if(s.startsWith("rozruch")){
       int ms = s.substring(7).toInt();
       if(ms > 200 && ms < 3000) rozruch(ms);
