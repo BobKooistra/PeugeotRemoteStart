@@ -6,10 +6,10 @@ from obd import Async
 class Starter:
     def __init__(self):
         self.__connection : Serial = None
-        self.open()
+        self.open_conn()
 
 
-    def open(self):
+    def open_conn(self):
         self.__connection = Serial("/dev/ttyUSB0", 9600, timeout=1)
 
     def close(self):
@@ -20,7 +20,7 @@ class Starter:
     def checkConnection(self):
         i = 0
         while i < 3 and (self.__connection is None or not self.__connection.isOpen()):
-            self.open()
+            self.open_conn()
             i += 1
         if i == 3:
             raise ConnectionError("Couldn't connect to serial port.")
@@ -33,6 +33,14 @@ class Starter:
     def off(self):
         self.checkConnection()
         self.__connection.write(b"zaplon_off")
+
+    def close(self):
+        self.checkConnection()
+        self.__connection.write(b"zamknij")
+
+    def open(self):
+        self.checkConnection()
+        self.__connection.write(b"otworz")
 
     def foto(self):
         self.checkConnection()
