@@ -1,8 +1,14 @@
 from serial import Serial
 from time import sleep
+from obd import Async
 
 
 class Starter:
+    def __init__(self):
+        self.__connection : Serial = None
+        self.open()
+
+
     def open(self):
         self.__connection = Serial("/dev/ttyUSB0", 9600, timeout=1)
 
@@ -10,9 +16,6 @@ class Starter:
         if self.__connection is not None:
             self.__connection.close()
 
-    def __init__(self):
-        self.__connection : Serial = None
-        self.open()
 
     def checkConnection(self):
         i = 0
@@ -53,8 +56,6 @@ class Starter:
         self.checkConnection()
         f = self.foto()
         if f is not None and f < 10:
-            self.__connection.write(b"rozruch")
-            sleep(1)
-            self.__connection.write(b"700")
+            self.__connection.write(b"rozruch700")
 
 
