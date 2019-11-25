@@ -5,17 +5,15 @@ from obd import Async
 
 class Starter:
     def __init__(self):
-        self.__connection : Serial = None
+        self.__connection: Serial = None
         self.open_conn()
-
 
     def open_conn(self):
         self.__connection = Serial("/dev/ttyUSB0", 9600, timeout=1)
 
-    def close(self):
+    def close_conn(self):
         if self.__connection is not None:
             self.__connection.close()
-
 
     def checkConnection(self):
         i = 0
@@ -65,5 +63,3 @@ class Starter:
         f = self.foto()
         if f is not None and f < 10:
             self.__connection.write(b"rozruch700")
-
-
