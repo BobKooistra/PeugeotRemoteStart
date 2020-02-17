@@ -21,6 +21,8 @@ class RemoteStartAPI:
         self.app.add_url_rule("/doors_close", "doors_close", self.doors_close)
         self.app.add_url_rule("/neutral_gear", "neutral_gear", self.neutral_gear)
         self.app.add_url_rule("/engine_start", "engine_start", self.engine_start)
+        self.app.add_url_rule("/speed", "speed", self.speed)
+        self.app.add_url_rule("/rpm", "rpm", self.rpm)
 
     @staticmethod
     def root():
@@ -67,8 +69,18 @@ class RemoteStartAPI:
         else:
             return
 
+    def speed(self):
+        return {"speed": self.__monitor.getSpeed()}
+
+    def rpm(self):
+        return {"rpm": self.__monitor.getRPM()}
+
     def run(self):
         self.app.run()
+
+    def __del__(self):
+        self.__monitor.close()
+        self.__starter.close_conn()
 
 
 if __name__ == '__main__':
