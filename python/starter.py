@@ -31,19 +31,19 @@ class Starter:
         else:
             self.__connection.flush()
 
-    def on(self):
+    def ignition_on(self):
         self.check_connection()
         self.__connection.write(b"zaplon_on")
 
-    def off(self):
+    def ignition_off(self):
         self.check_connection()
         self.__connection.write(b"zaplon_off")
 
-    def close(self):
+    def doors_close(self):
         self.check_connection()
         self.__connection.write(b"zamknij")
 
-    def open(self):
+    def doors_open(self):
         self.check_connection()
         self.__connection.write(b"otworz")
 
@@ -67,7 +67,7 @@ class Starter:
         r = r and int(r.strip())
         return r < self.photoresistor_threshold
 
-    def start(self, starter_time=700):
+    def engine_start(self, starter_time=700):
         self.check_connection()
         f = self.is_on_neutral_gear()
         if f:
