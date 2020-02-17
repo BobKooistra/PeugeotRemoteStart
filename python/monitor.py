@@ -5,10 +5,10 @@ class Monitor:
     def __init__(self):
         self.conn = obd.OBD("/dev/rfcomm0")
 
-    def getSpeed(self):
+    def get_speed(self):
         return self.conn.query(obd.commands.SPEED).value
 
-    def getRPM(self):
+    def get_rpm(self):
         return self.conn.query(obd.commands.RPM).value
 
     def close(self):

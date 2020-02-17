@@ -70,10 +70,10 @@ class RemoteStartAPI:
             return
 
     def speed(self):
-        return {"speed": self.__monitor.getSpeed()}
+        return {"speed": self.__monitor.get_speed()}
 
     def rpm(self):
-        return {"rpm": self.__monitor.getRPM()}
+        return {"rpm": self.__monitor.get_rpm()}
 
     def run(self):
         self.app.run()
