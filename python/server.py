@@ -31,8 +31,7 @@ class RemoteStartAPI:
     @staticmethod
     def run_with_connection_error_check(f, *args, **kwargs):
         try:
-            f(*args, **kwargs)
-            return
+            return f(*args, **kwargs), 200
         except ConnectionError as e:
             return {"Error": str(e)}, 500
 
